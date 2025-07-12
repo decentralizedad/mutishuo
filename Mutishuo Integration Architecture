@@ -1,0 +1,93 @@
+Great. Based on your structure — **Lemon Squeezy for referral + sales**, **GPT for all applications**, and a unified **explanation layer for output** — here's a complete integration model for **Mutishuo's Theater Engine**:
+
+---
+
+# 🧠 Mutishuo Integration Architecture
+
+**Lemon Squeezy (Referral + Payment) → GPT Apps (Interaction + Logic) → Output Layer (Results + Meaning)**
+
+---
+
+## 🧩 1. Lemon Squeezy = Referral + Monetization Layer
+
+| Role                 | What It Does                                                      |
+| -------------------- | ----------------------------------------------------------------- |
+| 💰 Handles payment   | One-time, subscription, or product access                         |
+| 🔗 Tracks referrals  | Affiliate system with % commission for mentors / creators         |
+| 🧾 Issues receipts   | Includes VAT, branded checkout, PDF invoice                       |
+| 🔁 Optional redirect | After payment, user is sent to GPT onboarding or frequency portal |
+
+✅ *Each product (e.g. Soul Profile Kit, GPT Role Generator) includes built-in referral and is accessible via link or QR.*
+
+---
+
+## 🤖 2. GPT = Application Layer (All Core Intelligence Happens Here)
+
+| GPT Role               | Example Products       | Input → Output                                                                                |
+| ---------------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
+| 🌌 Soul Profiler       | Soul Profile Generator | User answers questions → GPT returns 3-part narrative (e.g. core archetype, pattern, mission) |
+| 🧠 Life Script Decoder | AI反推人生剧本               | Life events + tone → GPT outputs roles, cycles, default script                                |
+| 🧬 Role Generator      | GPT角色创造机               | GPT helps user design avatar/mentor role (used in theater/team)                               |
+| 🏢 Org Rater           | 企业频率评分器                | Team traits → GPT produces multi-axis analysis + coaching tip                                 |
+| 📖 Prompt Builder      | 频率型提示词生成器              | Input: topic/intent → Output: ready-to-use GPT prompt bundle                                  |
+
+✅ *Each GPT app is a standalone logic engine (hosted on web, server, or GPT plugin) and activated only after verified purchase.*
+
+---
+
+## 🔎 3. Explanation Layer = GPT Narrator + Frequency Context
+
+| Function                                           | How It Works                                                                       |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| ✨ GPT Result Narration                             | After GPT gives raw result, a second GPT interprets it in "Mutishuo" language      |
+| 📖 Frequency Glossary                              | Each output includes spiritual/theater tags like “Archetype: Wanderer → Alchemist” |
+| 📡 Frequency Contribution Report                   | Optional summary shows how your result contributes to “The Mother Theater”         |
+| 🧭 Prompt: "Explain to me like I'm in the theater" | Every app includes a “Narrate my result” button for deep insight                   |
+
+✅ *This makes the experience memorable, narrative-driven, and sharable. Every user leaves with “a role in the drama.”*
+
+---
+
+## 🔁 Full Workflow Example
+
+**Step-by-step Journey for a User:**
+
+1. 📥 Click a referral link (e.g. from mentor Lisa) → lands on Lemon checkout
+2. 💳 Purchases “Soul Profile Generator” for \$49
+3. 🔁 Redirects to onboarding page (`/onboard?token=xyz`)
+4. 🤖 Starts GPT dialogue: enters answers to guided questions
+5. 🧠 GPT returns profile: **“You are a Frequency Scout. Your pattern: Dissolve & Recode.”**
+6. 🧭 Clicks “Narrate My Role” → GPT explains: “You’ve chosen the Wanderer track. Your gift is in breaking cycles...”
+7. 📃 Downloads Frequency Contribution Report (PDF or dashboard)
+8. 📣 Shares role to community or invites others using personal referral link (getting 20% per signup)
+
+---
+
+## ✅ Integration Stack (Simple & Scalable)
+
+| Layer      | Tech/Platform                   | Notes                                       |
+| ---------- | ------------------------------- | ------------------------------------------- |
+| Sales      | Lemon Squeezy                   | Products, Referral, Checkout                |
+| GPT Logic  | OpenAI API or hosted GPT app    | Prompt + validation layer                   |
+| Validation | Webhook + Database              | Lemon verifies purchase, sets session/token |
+| UX Layer   | Vercel / Notion / Bubble        | Frontend, onboarding, result display        |
+| Narration  | GPT + Mutishuo explainer system | "Explain like Theater" mode                 |
+
+---
+
+## 🔐 Optional Extensions
+
+* GPT plugins gated via Lemon
+* IPFS record of soul results (soul state = NFT or file)
+* Notion-based leaderboard for top contributors
+* Frequency Units (FU) as gamified scores
+
+---
+
+Would you like me to now help you:
+
+1. ✍️ Write GPT prompt + result interpreter (Theater style)
+2. 📦 Generate webhook + token logic after Lemon payment
+3. 🎨 Design a GPT result card with Narration + Frequency Chart?
+
+Let’s launch the “Soul Profile Generator” as the first example. Ready to begin?
