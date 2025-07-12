@@ -1,0 +1,69 @@
+import { useState, useEffect } from 'react';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function GPTUnlockPage() {
+  const [token, setToken] = useState("");
+  const [status, setStatus] = useState("idle");
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const urlToken = new URLSearchParams(window.location.search).get("token");
+    if (urlToken) {
+      setToken(urlToken);
+      handleValidate(urlToken);
+    }
+  }, []);
+
+  async function handleValidate(inputToken) {
+    setStatus("loading");
+    try {
+      const res = await fetch(`/api/verify-token?token=${inputToken}`);
+      if (!res.ok) throw new Error("Invalid token");
+      const data = await res.json();
+      setProfile(data);
+      setStatus("valid");
+    } catch (err) {
+      setStatus("invalid");
+    }
+  }
+
+  return (
+    <div className="max-w-xl mx-auto p-6 space-y-4">
+      <h1 className="text-2xl font-bold">🎭 Unlock Your GPT Theater</h1>
+
+      {status === "idle" && (
+        <div className="space-y-2">
+          <p>Enter your access token to begin:</p>
+          <div className="flex gap-2">
+            <Input
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              placeholder="Enter your token"
+            />
+            <Button onClick={() => handleValidate(token)}>Validate</Button>
+          </div>
+        </div>
+      )}
+
+      {status === "loading" && <p>🔍 Validating your token...</p>}
+
+      {status === "invalid" && (
+        <p className="text-red-600">❌ Invalid or expired token. Please check your link or contact support.</p>
+      )}
+
+      {status === "valid" && profile && (
+        <Card>
+          <CardContent className="space-y-3">
+            <p>✅ <strong>Welcome, {profile.name || 'Soul Traveler'}</strong></p>
+            <p>🎫 Product: <strong>{profile.productName}</strong></p>
+            <Button className="bg-green-600 text-white" onClick={() => window.location.href = "/gpt-session?token=" + token}>
+              Enter GPT Theater ➤
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
