@@ -1,0 +1,130 @@
+Perfect. Here’s a complete guide and implementation to generate **webhook + token logic** after a Lemon Squeezy payment — so that you can unlock access to your GPT-powered apps only for **verified buyers**.
+
+---
+
+## 🧠 Goal
+
+After a user purchases a product on Lemon Squeezy:
+
+1. Lemon sends a **webhook** to your server
+2. Your server verifies it, generates a **login or access token**
+3. User is redirected (or emailed) to use GPT-powered Mutishuo tools with that token
+4. Token can be used to:
+
+   * Unlock GPT prompt
+   * Personalize session
+   * Attach purchase to soul profile
+
+---
+
+## 🛠️ Step-by-step Integration Plan
+
+### ✅ 1. Set up Lemon Squeezy Webhook
+
+Go to:
+**Lemon Squeezy Dashboard → Settings → Webhooks**
+
+* Add new webhook URL:
+  Example: `https://mutishuo.com/api/lemon-hook`
+
+* Select events to receive:
+  ✅ `order_created`
+  ✅ `order_refunded`
+  ✅ `subscription_created` (if you sell subscriptions)
+
+---
+
+### ✅ 2. Sample Webhook Receiver (Node.js/Express version)
+
+```js
+// POST /api/lemon-hook
+const express = require('express');
+const crypto = require('crypto');
+const app = express();
+app.use(express.json());
+
+const LEMON_SECRET = process.env.LEMON_SECRET || 'your_webhook_secret';
+
+function verifySignature(req) {
+  const signature = req.headers['x-signature'];
+  const payload = JSON.stringify(req.body);
+  const expected = crypto.createHmac('sha256', LEMON_SECRET).update(payload).digest('hex');
+  return signature === expected;
+}
+
+app.post('/api/lemon-hook', (req, res) => {
+  if (!verifySignature(req)) {
+    return res.status(401).send('Invalid signature');
+  }
+
+  const data = req.body.data;
+  const email = data.attributes.user_email;
+  const productId = data.attributes.product_id;
+
+  // 1. Verify allowed product
+  if (productId === '123456') {
+    // 2. Generate token
+    const token = crypto.randomBytes(16).toString('hex');
+
+    // 3. Store token (DB, Redis, or Memory)
+    // db.tokens.insert({ email, token, productId, createdAt: new Date() });
+
+    console.log(`✅ Token created for ${email}: ${token}`);
+
+    // 4. Optionally email user or redirect to frontend
+  }
+
+  res.send('ok');
+});
+```
+
+---
+
+### ✅ 3. What to Do With the Token
+
+* Store it in DB (MongoDB, Firebase, Supabase, etc.)
+* Append it to a secure link:
+
+```bash
+https://mutishuo.com/gpt-access?token=abc123
+```
+
+* GPT app checks:
+
+  * Is token valid?
+  * Has it expired?
+  * Does it match the product?
+
+---
+
+### ✅ 4. Optional Token Usage
+
+| Use Case               | How                                          |
+| ---------------------- | -------------------------------------------- |
+| Unlock GPT prompt      | Attach token to GPT route (`/gpt?token=...`) |
+| Auto-load user profile | Token identifies soul profile in backend     |
+| Prevent sharing        | One-time use, or expire in 48h               |
+| Email delivery         | Send “Your Frequency Access Link” on payment |
+
+---
+
+## 📦 Bonus: Tools/Alternatives
+
+| Purpose                    | Tool                                         |
+| -------------------------- | -------------------------------------------- |
+| Email users after purchase | Lemon → Zapier → MailerSend or Gmail         |
+| Store tokens securely      | Supabase / Firebase / PostgreSQL             |
+| Build token dashboard      | Notion API + GPT                             |
+| Protect GPT endpoints      | Vercel Edge Middleware / JWT / API key logic |
+
+---
+
+## ✅ Next Step: Deployment
+
+Would you like me to now:
+
+1. 🧪 Generate a working webhook endpoint (Node.js or PHP)?
+2. 🧬 Design the token validation + GPT unlock page?
+3. 📨 Set up “email user after payment” logic?
+
+I recommend starting with **option 2** if you already handle GPT access. Let me scaffold that next?
